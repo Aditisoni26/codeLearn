@@ -202,8 +202,8 @@
       data.resources.forEach((res) => {
         const li = document.createElement("li");
         li.className = "list-group-item";
-        li.innerHTML = `<a href="${res.link}" target="_blank" class="text-decoration-none text-primary">${res.name}</a>`; resourceList.appendChild(li); }); document.getElementById("logoutBtn").addEventListener("click", () => { localStorage.removeItem("user");
-            window.location.href = "index.html"; });
+        li.innerHTML = `<a href="${res.link}" target="_blank" class="text-decoration-none text-primary">${res.name}</a>`; resourceList.appendChild(li); }); // ✅ Logout functionality document.getElementById("logoutBtn").addEventListener("click",
+            () => { localStorage.removeItem("user"); window.location.href = "index.html"; });
             </script>
 </body>
 
