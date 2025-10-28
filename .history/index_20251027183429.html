@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeLearn | Login / Register</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="bg-light">
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow p-4" style="width: 380px;">
+            <h3 class="fw-bold text-center text-primary mb-3">CodeLearn</h3>
+            <p class="text-center text-muted mb-4">Login or Register to Continue</p>
+
+            <!-- Registration Form -->
+            <form id="registerForm" class="d-none">
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" id="regName" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="regEmail" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="regPassword" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mb-3">Register</button>
+                <p class="text-center small">
+                    Already have an account? <a href="#" id="showLogin" class="text-decoration-none text-primary">Login</a>
+                </p>
+            </form>
+
+            <!-- Login Form -->
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="loginEmail" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                <p class="text-center small">
+                    Don’t have an account? <a href="#" id="showRegister" class="text-decoration-none text-primary">Register</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

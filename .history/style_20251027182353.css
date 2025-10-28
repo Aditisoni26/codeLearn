@@ -1,0 +1,6 @@
+.roadmap li, .resources li {
+  transition: all 0.2s ease-in-out;
+}
+.roadmap li:hover, .resources li:hover {
+  background-color: #f0f8ff;
+}

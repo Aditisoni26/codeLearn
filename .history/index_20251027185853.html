@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeLearn - Login/Register</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background: #fff;
+            width: 380px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0.2, 0.2, 0.2);
+            text-align: center;
+            transition: 0.3s ease;
+        }
+        
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+        
+        button {
+            width: 95%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #2575fc;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            background: #1a5edb;
+        }
+        
+        .switch {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        .switch a {
+            color: #2575fc;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .message {
+            margin-top: 10px;
+            font-size: 14px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="form-container">
+        <!-- Login Form -->
+        <div id="login-form">
+            <h2>Login to CodeLearn</h2>
+            <input type="email" id="login-email" placeholder="Email" required />
+            <input type="password" id="login-password" placeholder="Password" required />
+            <button onclick="login()">Login</button>
+            <p class="switch">New user? <a onclick="showRegister()">Register here</a></p>
+            <p id="login-msg" class="message"></p>
+        </div>
+
+        <!-- Register Form -->
+        <div id="register-form" style="display: none;">
+            <h2>Create Account</h2>
+            <input type="text" id="reg-name" placeholder="Full Name" required />
+            <input type="email" id="reg-email" placeholder="Email" required />
+            <input type="password" id="reg-password" placeholder="Password" required />
+            <button onclick="register()">Register</button>
+            <p class="switch">Already have an account? <a onclick="showLogin()">Login here</a></p>
+            <p id="register-msg" class="message"></p>
+        </div>
+    </div>
+
+    <script>
+        function showRegister() {
+            document.getElementById("login-form").style.display = "none";
+            document.getElementById("register-form").style.display = "block";
+        }
+
+        function showLogin() {
+            document.getElementById("register-form").style.display = "none";
+            document.getElementById("login-form").style.display = "block";
+        }
+
+        function register() {
+            const name = document.getElementById("reg-name").value.trim();
+            const email = document.getElementById("reg-email").value.trim();
+            const password = document.getElementById("reg-password").value.trim();
+            const msg = document.getElementById("register-msg");
+
+            if (!name || !email || !password) {
+                msg.textContent = "Please fill all fields.";
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            const userExists = users.find(u => u.email === email);
+
+            if (userExists) {
+                msg.textContent = "User already exists!";
+            } else {
+                users.push({
+                    name,
+                    email,
+                    password
+                });
+                localStorage.setItem("users", JSON.stringify(users));
+                msg.style.color = "green";
+                msg.textContent = "Registration successful! Please login.";
+                setTimeout(showLogin, 1500);
+            }
+        }
+
+        function login() {
+            const email = document.getElementById("login-email").value.trim();
+            const password = document.getElementById("login-password").value.trim();
+            const msg = document.getElementById("login-msg");
+
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            const validUser = users.find(u => u.email === email && u.password === password);
+
+            if (validUser) {
+                localStorage.setItem("user", JSON.stringify(validUser)); // ✅ consistent
+                msg.style.color = "green";
+                msg.textContent = "Login successful! Redirecting...";
+                setTimeout(() => window.location.href = "home.html", 1000);
+            } else {
+                msg.style.color = "red";
+                msg.textContent = "Invalid credentials!";
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

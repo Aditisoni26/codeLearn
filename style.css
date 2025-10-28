@@ -1,0 +1,22 @@
+.roadmap li, .resources li {
+  transition: all 0.2s ease-in-out;
+}
+.roadmap li:hover, .resources li:hover {
+  background-color: #f0f8ff;
+}
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.card {
+  border: none;
+  border-radius: 12px;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Roadmap | CodeLearn</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body style="background-color: #f8f9fa">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="home.html">CodeLearn</a
+        >
+        <div class="ms-auto">
+          <button class="btn btn-outline-primary" id="logoutBtn">Logout</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Section -->
+    <div class="container py-5">
+      <h2 class="fw-bold text-center text-primary mb-4" id="courseTitle">
+        Course Roadmap
+      </h2>
+
+      <!-- Roadmap -->
+      <div class="roadmap bg-white p-4 rounded-3 shadow-sm mb-5">
+        <h4 class="text-dark fw-semibold mb-3">
+          <i class="bi bi-map text-primary me-2"></i>Learning Roadmap
+        </h4>
+        <ul class="list-group" id="roadmapList"></ul>
+      </div>
+
+      <!-- Resources -->
+      <div class="resources bg-white p-4 rounded-3 shadow-sm">
+        <h4 class="text-dark fw-semibold mb-3">
+          <i class="bi bi-link-45deg text-primary me-2"></i>Helpful Resources
+        </h4>
+        <ul class="list-group" id="resourceList"></ul>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-3 bg-white border-top text-muted small">
+      © 2025 CodeLearn — Learn Smarter.
+    </footer>
+
+    <script>
+      // Get course name from URL
+      const params = new URLSearchParams(window.location.search);
+      const course = params.get("course") || "C Language";
+      const title = document.getElementById("courseTitle");
+      title.textContent = course + " Roadmap";
+
+      // Define course data
+      const courseData = {
+        "C Language": {
+          roadmap: [
+            "Introduction to Programming & Setup",
+            "Data Types, Variables & Operators",
+            "Control Statements (if, loops, switch)",
+            "Functions and Recursion",
+            "Arrays & Strings",
+            "Pointers & Memory Management",
+            "Structures & File Handling",
+          ],
+          resources: [
+            {
+              name: "W3Schools C Tutorial",
+              link: "https://www.w3schools.com/c/",
+            },
+            {
+              name: "GeeksforGeeks C Guide",
+              link: "https://www.geeksforgeeks.org/c-programming-language/",
+            },
+            {
+              name: "freeCodeCamp C Playlist",
+              link: "https://www.youtube.com/watch?v=KJgsSFOSQv0",
+            },
+          ],
+        },
+        "C++": {
+          roadmap: [
+            "C++ Basics & Syntax",
+            "Object-Oriented Programming (OOPs)",
+            "STL (Vectors, Maps, Sets)",
+            "Inheritance & Polymorphism",
+            "Templates & Exception Handling",
+            "File Handling & Projects",
+          ],
+          resources: [
+            {
+              name: "GeeksforGeeks C++ Guide",
+              link: "https://www.geeksforgeeks.org/c-plus-plus/",
+            },
+            {
+              name: "Programiz C++",
+              link: "https://www.programiz.com/cpp-programming",
+            },
+            {
+              name: "freeCodeCamp C++ Course",
+              link: "https://www.youtube.com/watch?v=vLnPwxZdW4Y",
+            },
+          ],
+        },
+        Python: {
+          roadmap: [
+            "Python Basics & Syntax",
+            "Data Structures (List, Dict, Tuple)",
+            "Functions & Modules",
+            "File Handling & Exceptions",
+            "OOP in Python",
+            "Libraries: NumPy, Pandas, Matplotlib",
+            "Mini Projects",
+          ],
+          resources: [
+            {
+              name: "Python.org Docs",
+              link: "https://docs.python.org/3/tutorial/",
+            },
+            {
+              name: "freeCodeCamp Python Course",
+              link: "https://www.youtube.com/watch?v=rfscVS0vtbw",
+            },
+            {
+              name: "W3Schools Python",
+              link: "https://www.w3schools.com/python/",
+            },
+          ],
+        },
+        Java: {
+          roadmap: [
+            "Java Basics & Setup",
+            "Control Structures & Loops",
+            "OOP Concepts",
+            "Collections Framework",
+            "Exception Handling",
+            "Multithreading",
+            "Spring Boot (Advanced)",
+          ],
+          resources: [
+            {
+              name: "JavaTPoint Java Tutorial",
+              link: "https://www.javatpoint.com/java-tutorial",
+            },
+            {
+              name: "freeCodeCamp Java Course",
+              link: "https://www.youtube.com/watch?v=grEKMHGYyns",
+            },
+            {
+              name: "Oracle Java Docs",
+              link: "https://docs.oracle.com/javase/tutorial/",
+            },
+          ],
+        },
+      };
+
+      // Render roadmap
+      const roadmapList = document.getElementById("roadmapList");
+      const resourceList = document.getElementById("resourceList");
+      const data = courseData[course] || courseData["C Language"];
+
+      // Load saved progress
+      const completed = JSON.parse(
+        localStorage.getItem(course + "_progress") || "[]"
+      );
+
+      data.roadmap.forEach((step, i) => {
+        const li = document.createElement("li");
+        li.className =
+          "list-group-item d-flex justify-content-between align-items-center";
+        li.innerHTML = `
+        <span>${step}</span>
+        <input type="checkbox" ${
+          completed.includes(i) ? "checked" : ""
+        } data-step="${i}">
+      `;
+        roadmapList.appendChild(li);
+      });
+
+      // Save progress
+      roadmapList.addEventListener("change", (e) => {
+        if (e.target.matches("input[type='checkbox']")) {
+          const stepIndex = parseInt(e.target.dataset.step);
+          if (e.target.checked) {
+            completed.push(stepIndex);
+          } else {
+            const index = completed.indexOf(stepIndex);
+            if (index > -1) completed.splice(index, 1);
+          }
+          localStorage.setItem(course + "_progress", JSON.stringify(completed));
+        }
+      });
+
+      // Resources
+      data.resources.forEach((res) => {
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        // FIX this line in your course.html file:
+li.innerHTML = `<a href="${res.link}" target="_blank" class="text-decoration-none text-primary">${res.name}</a>`; ; resourceList.appendChild(li); }); // Logout document.getElementById("logoutBtn").addEventListener("click", () => { localStorage.removeItem("user");
+            // ✅ match the same key window.location.href = "index.html"; });
+            </script>
+</body>
+
+</html>
